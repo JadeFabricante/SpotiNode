@@ -1,0 +1,166 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    background:black;
+    color: white;
+    overflow: hidden;
+}
+
+.main {
+    display: flex;
+    height: 100vh;
+    padding: 0.5rem;
+}
+
+.sidebar {
+    background: linear-gradient(135deg, black, violet, purple);
+    width: 340px;
+    border-radius: 1rem;
+    margin-right: 0.5rem;
+}
+
+.main-content {
+    background: linear-gradient(135deg, black, violet, purple);
+    flex: 1;
+    border-radius: 1rem;
+    overflow: auto;
+    padding: 0 1.5rem 0 1.5rem;
+}
+
+.music-player {
+    background: white;
+    position: fixed;  /* Keep it fixed */
+    bottom: 20px;  /* Space from the bottom */
+    right: 20px;  /* Space from the right */
+    width: 300px;  /* Adjust the width as needed to fit your layout */
+    height: 72px;  /* Maintain the height */
+    display: none;  /* Hidden by default */
+    border-radius: 10px;  /* Optional: add some border radius */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Optional: add shadow */
+    padding: 10px;  /* Add padding if needed */
+}
+
+
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.nav {
+    background: linear-gradient(135deg, black, purple);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100px;
+    padding: 0.5rem 0.75rem;
+}
+
+.nav-option {
+    line-height: 2.5rem;
+    opacity: 0.7;
+    padding: 0.5rem 0.75rem;
+}
+
+.nav-option:hover {
+    opacity: 1;
+}
+
+.nav-option i {
+    font-size: 1.25rem;
+}
+
+.nav-option a {
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+
+.library {
+    background: linear-gradient(135deg, black, purple);
+    border-radius: 1rem;
+    height: 100%;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.box {
+    height: 7rem;
+    background-color: #232323;
+    border-radius: 0.75rem;
+    margin: 0.75rem 0 1rem 0;
+    padding: 0.75rem 1rem;
+}
+
+.box-p1 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0.5rem auto;
+}
+
+.box-p2 {
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+.badge {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 100px;
+    padding: 0.25rem 1rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+    height: 2rem;
+    width: fit-content;
+}
+
+.sticky-nav {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(135deg, black, violet, purple);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    z-index: 10;
+}
+
+.card {
+    background-color: #232323;
+    width: 150px;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 0.5rem 0 1.5rem 1.5rem;
+    transition: all ease-in-out 0.2s;
+    color: white; /* Ensure text is white for visibility */
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-title {
+    font-weight: 600;
+    font-size: 16px;
+    white-space: normal; /* Allow the text to wrap */
+    word-wrap: break-word; /* Break long words if necessary */
+    margin: 0; /* Remove margin for better fitting */
+}
+
+.card-info {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.music-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Add more styles as needed based on the rest of your code... */

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="public/logo.png">
+    <title>Spotify - Web Player: Music for everyone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="sidebar">
+            <div class="nav">
+                <div class="nav-option" style="opacity: 1;">
+                    <i class="fa-solid fa-house"></i>
+                    <a href="/">Home</a>
+                </div>            
+            </div>
+            <div class="library">
+                <div class="lib-box">
+                    <div class="box">
+                        <p class="box-p1">Upload a new MP3</p>
+                        <p class="box-p2">It's easy, just fill out the fields below.</p>
+                        <form action="/upload" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="mp3file" accept=".mp3" required class="form-control-file">
+                            <button type="submit" class="badge">Upload MP3</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sticky-nav">
+                <div class="sticky-nav-icons">
+                    <img src="logo.png" alt="" style="height: 25px; width: 25px; margin-right: 8px;">
+                    <span style="color: white; font-size: 2rem;">Spotify</span> 
+                </div>
+                <div class="sticky-nav-options">
+                    <button class="badge nav-item hide">Explore Premium</button>
+                    <button class="badge nav-item dark-badge"><i class="fa-regular fa-circle-down"
+                            style="margin-right:5px ;"></i>Install App</button>
+                    <i class="fa-regular fa-user nav-item"></i>
+                </div>
+            </div>
+
+            <h2>Uploaded MP3 Files</h2>
+            <div class="card-container">
+                <ul class="list-group">
+                    <% files.forEach(function(file, index) { %>
+                    <li class="card">
+                        <div class="card-content">
+                            <!-- Remove the '.mp3' extension from the file name before displaying -->
+                            <p class="card-title"><%= file.file_name.replace('.mp3', '') %></p>
+                            <p class="card-info">Click play to listen</p>
+                        </div>
+                        <button class="btn btn-secondary playBtn" data-index="<%= index %>">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                    </li>
+                    <% }) %>
+                </ul>
+            </div>
+
+            <!-- Audio Player -->
+            <div class="music-player">
+                <div class="player">
+                    <div class="player-control">
+                        <button id="prevBtn"><i class="fa-solid fa-backward"></i></button>
+                        <button id="playBtn"><i class="fa-solid fa-play"></i></button>
+                        <button id="nextBtn"><i class="fa-solid fa-forward"></i></button>
+                    </div>
+                    <audio id="audioPlayer" controls>
+                        <source id="audioSource" src="" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array of audio files' paths
+        const audioFiles = [
+            <% files.forEach(function (file) { %>
+                '<%= file.file_path %>',
+            <% }) %>
+        ];
+
+        let currentIndex = -1; // No song is currently playing
+
+        const audioPlayer = document.getElementById('audioPlayer');
+        const audioSource = document.getElementById('audioSource');
+        const playBtn = document.getElementById('playBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+
+        // Load audio and play
+        function loadAudio(index) {
+            audioSource.src = audioFiles[index];
+            audioPlayer.load();
+            audioPlayer.play();
+        }
+
+        // Play button event for list items
+        document.querySelectorAll('.playBtn').forEach(button => {
+            button.addEventListener('click', function () {
+                const index = this.getAttribute('data-index');
+                currentIndex = index;
+                loadAudio(currentIndex);
+            });
+        });
+
+        // Play/Pause button
+        playBtn.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+            } else {
+                audioPlayer.pause();
+            }
+        });
+
+        // Next button
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % audioFiles.length; // Loop to the start
+            loadAudio(currentIndex);
+        });
+
+        // Previous button
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + audioFiles.length) % audioFiles.length; // Loop to the end
+            loadAudio(currentIndex);
+        });
+    </script>
+</body>
+
+</html>
